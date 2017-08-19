@@ -1,0 +1,85 @@
+<?php $__env->startSection('content'); ?>
+	<?php if( is_numeric($list['id']) ): ?>
+		<h2>Modifier la Commande <?php echo $list['id']; ?></h2>
+	<?php else: ?>
+		<h2>Ajouter une Commande</h2>
+	<?php endif; ?>
+	<br>
+	<div class="form-container">
+		<?php if($errors->any()): ?>
+			<div class="errors">
+				<p><em>Oops... the following errors were encountered:</em></p>
+				<br>
+				<ul>
+					<?php foreach($errors->all() as $message): ?>
+						<li><?php echo $message; ?></li>
+					<?php endforeach; ?>
+				</ul>
+				<br>
+				<p>Data has <strong>not</strong> been saved.</p>
+			</div>
+			<br />
+		<?php endif; ?>
+		<?php echo Form::open(array('url'=>'editer/commande')); ?>
+
+		<p class="legend">
+			<strong>Note: </strong>Required fields are marked with an asterisk (<em>*</em>)
+		</p>
+		<br />
+		<fieldset>
+			<legend>Details de la commande</legend>
+			<div>
+				<?php echo Form::label('liste', 'Medicaments ?'); ?>
+
+				<select id="liste" name="liste" style="width:20%">
+					<?php foreach($medicaments as $medicament): ?>
+						<option value="<?php echo $medicament->id; ?>"><?php echo $medicament->code; ?></option>
+					<?php endforeach; ?>
+				</select>
+				<?php echo Form::button('Ajouter', array('onclick' => 'ajouterListe()')); ?>
+
+			</div>
+			<div>
+				<?php echo Form::label('codes', 'Codes sélectionnés'); ?>
+
+				<?php echo Form::text('codes', $list['codes'], array('style' => 'width: 60%', 'id' => 'codes')); ?>
+
+			</div>
+			<div>
+				<?php echo Form::label('quantites', 'Quantités'); ?>
+
+				<?php echo Form::text('quantites', $list['quantites'], array('style' => 'width: 60%')); ?>
+
+			</div>
+			<div>
+				<?php echo Form::label('fournisseur', 'Fournisseur'); ?>
+
+				<?php echo Form::text('fournisseur', $list['fournisseur'], array('style' => 'width: 60%')); ?>
+
+			</div>
+			<div>
+				<?php echo Form::label('recu', 'Commande reçue ?'); ?>
+
+				<?php echo Form::radio('recu', 'non', !$list['reception']); ?> <span style="font-size: 12px">Non</span>
+				<?php echo Form::radio('recu', 'oui', $list['reception']); ?> <span style="font-size: 12px">Oui</span>
+			</div>
+			<div>
+				<?php echo Form::label('prix', 'Prix Total'); ?>
+
+				<?php echo Form::text('prix', $list['prix'], array('style' => 'width: 10%')); ?>
+
+				<span style="font-size: 12px">le prix total de la commande ne sera pris en compte que si celle-ci est dèja reçue.</span>
+			</div>
+		</fieldset>
+		<?php echo Form::hidden('id', $list['id']); ?>
+
+		<div class="buttonrow">
+			<?php echo Form::submit('Enregistrer', array('class'=>'button')); ?>
+
+			<input class="button" type="reset">
+		</div>
+		<?php echo Form::close(); ?>
+
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

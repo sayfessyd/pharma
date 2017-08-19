@@ -1,0 +1,155 @@
+@extends('layout')
+@section('js')
+	controllerScope.$apply(function() {
+		controllerScope.notes = {{ $notes }};
+		if (jQuery.isEmptyObject(controllerScope.notes))
+			controllerScope.notes = [{'id': 'Aucune note trouvée'}];
+		controllerScope.medicaments = {{ $medicaments }};
+		if (jQuery.isEmptyObject(controllerScope.medicaments))
+			controllerScope.medicaments = [{'id_note': 'Aucune note trouvée','nom_medicament': 'Aucun medicament trouvé'}];
+	});
+@stop
+@section('css')
+	<style type="text/css">
+		.header th{
+			background-color: #B20000;
+		}
+		.header th a{
+			color: #eee;
+		}
+		#notes td{
+			background-color: #FFF;
+			border-top: 1px solid #d2d2d2;
+		}
+		a .fa-arrow-circle-o-left{
+			display: none;
+		}
+		@media only screen and (min-width: 940px) {
+			.responsive-table td:last-child {
+				padding-bottom: 1em;
+			}
+		}
+	</style>
+@stop
+@section('content')
+	<div ng-controller="NoteController">
+		<div class="popup">
+			<br />
+			<p align="center">
+				<i class="fa fa-exclamation-triangle fa-2x"></i>
+				Voulez-vous vraiment supprimer cette note ?
+			</p>
+			<br />
+			<a class="btndanger" href="" ng-click="supprimer()">
+				<i class="fa fa-trash-o fa-lg" style="color:#d2d2d2"></i> Supprimer
+			</a>
+			<a class="btnnone" href="" ng-click="annuler()">
+				<i class="fa fa-check fa-lg" style="color:#d2d2d2"></i> Annuler
+			</a>
+		</div>
+		<h2>Liste des Notes</h2>
+		<label for="search2">Filtrer ?</label>
+		<input name="search2" type="search" ng-model="searchText2">
+		{{ Form::open(array('url'=>'supprimer/note')) }}
+		<table class="responsive-table" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr class="header">
+					<th style="width: 5%">
+					<button type="submit" class="Xbtn">
+						<i id="supp" class="fa fa-trash fa-2x" style="color: #eee;"></i>
+					</button>
+					<a href="javascript:checkAll()"><i class="fa fa-check-square-o fa-1x" style="color: #eee;"></i></a>
+					<a href="javascript:unCheckall()"><i class="fa fa-square-o fa-1x" style="color: #eee;"></i></a>
+					</th>
+
+					<th style="width: 10%"><a href="" ng-click="reverse=!reverse;order('id', reverse)">Note <i class="fa fa-sort" style="color:#eee;"></i> </a></th>
+					<th style="width: 15%"><a href="" ng-click="reverse=!reverse;order('created_at', reverse)">Date <i class="fa fa-sort" style="color:#eee;"></i> </a></th>
+					<th style="width: 15%"><a href="" ng-click="reverse=!reverse;order('updated_at', reverse)">MAJ <i class="fa fa-sort" style="color:#eee;"></i> </a></th>
+					<th style="width: 10%"><a href="" ng-click="reverse=!reverse;order('ht', reverse)">HT <i class="fa fa-sort" style="color:#eee;"></i> </a></th>
+					<th style="width: 10%"><a href="" ng-click="reverse=!reverse;order('tg', reverse)">TT <i class="fa fa-sort" style="color:#eee;"></i> </a></th>
+					<th style="width: 10%"><a href="" ng-click="reverse=!reverse;order('ttc', reverse)">TTC <i class="fa fa-sort" style="color:#eee;"></i> </a></th>
+					<th style="width: 5%"><a href="{{ url('notes') }}">
+						<i class="icon fa fa-arrow-circle-o-left fa-2x" style="color: #eee;"></i>
+					</a>
+				</th>
+				<th style="width: 5%">	<a href="#impr" ng-click="printAll()">
+					<i class="fa fa-print fa-2x" style="color: #eee;"></i>
+				</a></th>
+				<th style="width: 10%"><a href="#show"  ng-click="test = true">
+					<i class="fa fa-plus-square fa-2x" style="color: #eee;"></i>
+				</a>
+				<a href="#hide" ng-click="test = false">
+					<i class="fa fa-minus-square fa-2x" style="color: #eee"></i>
+				</a>
+			</th>
+			<th style="width: 6%; background-color: #3f3e3d; color: #eee">
+				<a href="javascript:changeView()" style="color: inherit"><i class="fa fa-2x fa-th-list" style="color: inherit"></i></a>
+			</th>
+		</tr>
+	</thead>
+	<tbody class="slide-top" ng-repeat="note in notes | filter:searchText2" id="note<% $index %>">
+		<tr id="notes">
+			<td><input type="checkbox" name="sup[]" id="<% notes[$index].id %>" value="<% notes[$index].id %>"></td>
+			<td data-th="Note"><div><% note.id %></div></td>
+			<td data-th="Date de creation"><div><% note.created_at %></div></td>
+			<td data-th="Date de M.A.J"><div><% note.updated_at %></div></td>
+			<td data-th="HT"><div><% note.ht %></div></td>
+			<td data-th="TG"><div><% note.tg %></div></td>
+			<td data-th="TTC"><div><% note.ttc %></div></td>
+			<td>	</td>
+			<td>	</td>
+			<td>	</td>
+			<td>
+				<a href="#show" ng-click="test = true">
+					<i class="icon fa fa-plus-square-o  fa-2x"></i>
+				</a>
+				<a href="#hide" ng-click="test = false">
+					<i class="icon fa fa-minus-square-o  fa-2x"></i>
+				</a>
+				<a href="{{ url('modifier/note') }}/<% note.id %>">
+					<i class="icon fa fa-pencil fa-2x"></i>
+				</a>
+				<a href="" ng-click="confirmer($index)">
+					<i class="icon fa fa-close fa-2x" style="color: #B20000;"></i>
+				</a>
+				<a href="" ng-click="print($index)">
+					<i class="icon fa fa-print fa-2x"></i>
+				</a>
+				<a href="{{ url('notes') }}">
+					<i class="icon fa fa-arrow-circle-o-left fa-2x"></i>
+				</a>
+			</td>
+		</tr>
+		<tr ng-hide="!test">
+			<th></th>
+			<th>Articles</th>
+			<th>PU</th>
+			<th>Quantité</th>
+			<th>HT</th>
+			<th>TT</th>
+			<th>TTC</th>
+			<th></th>
+			<th></th>
+			<th><label for="search1">Filtrer ?</label>
+			<input name="search1" type="search" ng-model="searchText1" style="width:80px;"></th>
+			<th>
+			</th>
+		</tr>
+		<tr id="medicaments" ng-hide="!test" class="slide-top" ng-repeat="medicament in medicaments| filter:{id_note:note.id} | filter:searchText1">
+			<td></td>
+			<td data-th="Nom"><div><% medicament.nom_medicament %></div></td>
+			<td data-th="PU"><div><% medicament.pu %></div></td>
+			<td data-th="Quantité"><div><% medicament.quantite %></div></td>
+			<td data-th="Sous HT"><div><% medicament.ht %></div></td>
+			<td data-th="TT"><div><% medicament.tt %></div></td>
+			<td data-th="Sous TTC"><div><% medicament.ttc %></div></td>
+			<td>	</td>
+			<td>	</td>
+			<td>	</td>
+			<td>	</td>
+		</tr>
+	</tbody>
+	</table>
+	{{ Form::close() }}
+	</div>
+@stop

@@ -1,0 +1,175 @@
+<?php $__env->startSection('content'); ?>
+	<?php if( is_object($medicament) ): ?>
+		<h2>Modifier le Medicament <?php echo $medicament->code; ?></h2>
+	<?php else: ?>
+		<h2>Ajouter un Medicament</h2>
+	<?php endif; ?>
+	<br>
+	<div class="form-container">
+		<?php if($errors->any()): ?>
+			<div class="errors">
+				<p><em>Oops... the following errors were encountered:</em></p>
+				<br>
+				<ul>
+					<?php foreach($errors->all() as $message): ?>
+						<li><?php echo $message; ?></li>
+					<?php endforeach; ?>
+				</ul>
+				<br>
+				<p>Data has <strong>not</strong> been saved.</p>
+			</div>
+			<br>
+		<?php endif; ?>
+		<?php echo Form::open(array('url'=>'editer/medicament')); ?>
+
+		<p class="legend">
+			<strong>Note: </strong>Required fields are marked with an asterisk (<em>*</em>)
+		</p>
+		<br>
+		<fieldset>
+			<legend>Famille?</legend>
+			<div>
+				<?php echo Form::label('famille', 'Famille (Code Nom)'); ?>
+
+				<select id="famille" name="famille">
+					<?php foreach($familles as $famille): ?>
+						<?php if( is_object($medicament) ): ?>
+							<?php if($famille->code != $medicament->famille->code): ?>
+								<option value="<?php echo $famille->id; ?>"><?php echo $famille->code; ?> <?php echo $famille->nom; ?></option>
+							<?php else: ?>
+								<option value="<?php echo $famille->id; ?>" selected="selected"><?php echo $famille->code; ?> <?php echo $famille->nom; ?></option>
+							<?php endif; ?>
+						<?php else: ?>
+							<option value="<?php echo $famille->id; ?>"><?php echo $famille->code; ?> <?php echo $famille->nom; ?></option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>Details du Medicament</legend>
+			<div>
+				<?php if($errors->has('code')): ?>
+					<label for="code" class="error">
+						Code <em>*</em>
+					</label>
+					<?php echo Form::text('code', '', array('class'=>'error')); ?>
+
+				<?php else: ?>
+					<label for="code">
+						Code <em>*</em>
+					</label>
+					<?php echo Form::text('code', $medicament['code']); ?>
+
+				<?php endif; ?>
+				<p class="note">Un code est associé à un seul medicament. </p>
+			</div>
+			<div>
+				<?php if($errors->has('nom')): ?>
+				<?php echo Form::label('nom', 'Nom', array('class'=>'error')); ?>
+
+				<?php echo Form::text('nom', '', array('class'=>'error')); ?>
+
+				<?php else: ?>
+				<?php echo Form::label('nom', 'Nom'); ?>
+
+				<?php echo Form::text('nom', $medicament['nom']); ?>
+
+				<?php endif; ?>
+			</div>
+			<div>
+				<?php if($errors->has('q_stock')): ?>
+				<?php echo Form::label('q_stock', 'Quantité en stock', array('class'=>'error')); ?>
+
+				<?php echo Form::text('q_stock', '', array('class'=>'error','maxlength'=>'5','size'=>'5')); ?>
+
+				<?php else: ?>
+				<?php echo Form::label('q_stock', 'Quantité en stock'); ?>
+
+				<?php echo Form::text('q_stock', $medicament['q_stock'], array('maxlength'=>'5','size'=>'5')); ?>
+
+				<?php endif; ?>
+			</div>
+			<div>
+				<?php if($errors->has('q_minimum')): ?>
+				<?php echo Form::label('q_minimum', 'Quantité minimum', array('class'=>'error')); ?>
+
+				<?php echo Form::text('q_minimum', '', array('class'=>'error','maxlength'=>'5','size'=>'5')); ?>
+
+				<?php else: ?>
+				<?php echo Form::label('q_minimum', 'Quantité minimum'); ?>
+
+				<?php echo Form::text('q_minimum', $medicament['q_minimum'], array('maxlength'=>'5','size'=>'5')); ?>
+
+				<?php endif; ?>
+			</div>
+			<div>
+				<?php if($errors->has('ht')): ?>
+				<?php echo Form::label('ht', 'HT', array('class'=>'error')); ?>
+
+				<?php echo Form::text('ht', '', array('class'=>'error','maxlength'=>'8','size'=>'8')); ?>
+
+				<?php else: ?>
+				<?php echo Form::label('ht', 'HT'); ?>
+
+				<?php echo Form::text('ht', $medicament['ht'], array('maxlength'=>'8','size'=>'8')); ?>
+
+				<?php endif; ?>
+			</div>
+			<div>
+				<?php if($errors->has('tt')): ?>
+				<?php echo Form::label('tt', 'TT', array('class'=>'error')); ?>
+
+				<?php echo Form::text('tt', '', array('class'=>'error','maxlength'=>'5','size'=>'5')); ?>
+
+				<?php else: ?>
+				<?php echo Form::label('tt', 'TT'); ?>
+
+				<?php echo Form::text('tt', $medicament['tt'], array('maxlength'=>'5','size'=>'5')); ?>
+
+				<?php endif; ?>
+			</div>
+			<div>
+				<?php if($errors->has('autorise')): ?>
+					<?php echo Form::label('autorise', 'Vente libre?', array('class'=>'error')); ?>
+
+					<?php echo Form::radio('autorise', '1', true); ?> <span style="font-size: 12px">Oui</span>
+					<?php echo Form::radio('autorise', '0'); ?> <span style="font-size: 12px">Non</span>
+				<?php else: ?>
+					<?php echo Form::label('autorise', 'Vente libre?'); ?>
+
+					<?php if($medicament['autorise'] == 1): ?>
+					<?php echo Form::radio('autorise', '1', true); ?> <span style="font-size: 12px">Oui</span>
+					<?php echo Form::radio('autorise', '0', false); ?> <span style="font-size: 12px">Non</span>
+					<?php else: ?>
+					<?php echo Form::radio('autorise', '1', false); ?> <span style="font-size: 12px">Oui</span>
+					<?php echo Form::radio('autorise', '0', true); ?> <span style="font-size: 12px">Non</span>
+					<?php endif; ?>
+				<?php endif; ?>
+			</div>
+			<div>
+				<?php if($errors->has('description')): ?>
+				<?php echo Form::label('description', 'Description', array('class'=>'error')); ?>
+
+				<?php echo Form::textarea('description', '', array('cols'=>'50', 'rows'=>'10', 'class'=>'error')); ?>
+
+				<?php else: ?>
+				<?php echo Form::label('description', 'Description'); ?>
+
+				<?php echo Form::textarea('description', $medicament['description'], array('cols'=>'50', 'rows'=>'10')); ?>
+
+				<?php endif; ?>
+			</div>
+		</fieldset>
+		<?php echo Form::hidden('id', $medicament['id']); ?>
+
+		<div class="buttonrow">
+			<?php echo Form::submit('Enregistrer', array('class'=>'button')); ?>
+
+			<input class="button" type="reset">
+		</div>
+		<?php echo Form::close(); ?>
+
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

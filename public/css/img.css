@@ -1,0 +1,72 @@
+.home {
+    background: url('img/home168.png');
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    opacity: 0.5;
+    margin-right: 5px;
+}
+.balls {
+    background: url('img/balls.png');
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    opacity: 0.5;
+    margin-right: 5px;
+}
+.medicala {
+    background: url('img/medical56.png');
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    opacity: 0.5;
+    margin-right: 5px;
+}
+.medicalb {
+    background: url('img/medical50.png');
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    opacity: 0.5;
+    margin-right: 5px;
+}
+.business {
+    background: url('img/business133.png');
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    opacity: 0.5;
+    margin-right: 5px;
+}
+@media only screen and (max-width: 1023px) {
+    .home {
+        background: url('img/home168X32.png');
+        width: 32px;
+        height: 32px;
+        margin-left: -10px
+    }
+    .balls {
+        background: url('img/ballsX32.png');
+        width: 32px;
+        height: 32px;
+        margin-left: -10px
+    }
+    .medicala {
+        background: url('img/medical56X32.png');
+        width: 32px;
+        height: 32px;
+        margin-left: -10px
+    }
+    .medicalb {
+        background: url('img/medical50X32.png');
+        width: 32px;
+        height: 32px;
+        margin-left: -10px
+    }
+    .business {
+        background: url('img/business133X32.png');
+        width: 32px;
+        height: 32px;
+        margin-left: -10px
+    }
+}

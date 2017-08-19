@@ -1,0 +1,94 @@
+.errors ul {
+    list-style-type: circle;
+}
+.errors ul li {
+    margin-left: 30px;
+}
+div.form-container {
+    background-color: #fff;
+    border: 1px solid #eee;
+    margin: 10px;
+    padding: 5px;
+}
+p.legend {
+    margin-bottom: 1em;
+}
+p.legend em {
+    color: #c00;
+    font-style: normal;
+}
+div.errors {
+    background-color: #ffc;
+    border: 1px solid #fc6;
+    margin: 0 0 10px;
+    padding: 5px 10px;
+}
+div.errors p {
+    margin: 0;
+}
+div.errors p em {
+    color: #c00;
+    font-style: normal;
+    font-weight: bold;
+}
+div.form-container form p {
+    margin: 0;
+}
+div.form-container form p.note {
+    color: #333;
+    font-size: 90%;
+    margin-left: 170px;
+}
+div.form-container form fieldset {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+}
+div.form-container form legend {
+    color: #666;
+    font-weight: bold;
+}
+div.form-container form fieldset div {
+    padding: 0.25em 0;
+}
+div.form-container label, div.form-container span.label {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    padding-right: 10px;
+    position: relative;
+    text-align: right;
+    width: 150px;
+}
+div.form-container label.error, div.form-container span.error {
+    color: #c00;
+}
+div.form-container label em, div.form-container span.label em {
+    color: #c00;
+    font-size: 120%;
+    font-style: normal;
+    position: absolute;
+    right: 0;
+}
+div.form-container input.error {
+    background-color: #fef;
+    border-color: #c00;
+}
+/*div.form-container input:focus, div.form-container input.error:focus, div.form-container textarea:focus {
+    background-color: #ffc;
+    border-color: #fc6;
+}*/
+
+div.form-container div.controlset label, div.form-container div.controlset input {
+    display: inline;
+    float: none;
+}
+div.form-container div.controlset div {
+    margin-left: 170px;
+}
+div.form-container div.buttonrow {
+    margin-left: 180px;
+}
+input[type=search] {
+    border: 1px solid #fc6;
+}

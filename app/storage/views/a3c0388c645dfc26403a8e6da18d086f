@@ -1,0 +1,85 @@
+<?php $__env->startSection('content'); ?>
+	<?php if( is_object($famille) ): ?>
+		<h2>Modifier la Famille <?php echo $famille->code; ?></h2>
+	<?php else: ?>
+		<h2>Ajouter une Famille</h2>
+	<?php endif; ?>
+	<br>
+	<div class="form-container">
+		<?php if($errors->any()): ?>
+		<div class="errors">
+			<p><em>Oops... the following errors were encountered:</em></p>
+			<br>
+			<ul>
+				<?php foreach($errors->all() as $message): ?>
+					<li><?php echo $message; ?></li>
+				<?php endforeach; ?>
+			</ul>
+			<br>
+			<p>Data has <strong>not</strong> been saved.</p>
+		</div>
+		<br>
+		<?php endif; ?>
+		<?php echo Form::open(array('url'=>'editer/famille')); ?>
+
+		<p class="legend">
+			<strong>Note: </strong>Required fields are marked with an asterisk (<em>*</em>)
+		</p>
+		<br>
+		<fieldset>
+			<legend>Details de la Famille</legend>
+			<div>
+				<?php if($errors->has('code')): ?>
+					<label for="code" class="error">
+						Code <em>*</em>
+					</label>
+					<?php echo Form::text('code', '', array('class'=>'error')); ?>
+
+				<?php else: ?>
+					<label for="code">
+						Code <em>*</em>
+					</label>
+					<?php echo Form::text('code', $famille['code']); ?>
+
+				<?php endif; ?>
+				<p class="note">Un code est associé à une seule famille. </p>
+			</div>
+			<div>
+				<?php if($errors->has('nom')): ?>
+				<?php echo Form::label('nom', 'Nom', array('class'=>'error')); ?>
+
+				<?php echo Form::text('nom', '', array('class'=>'error')); ?>
+
+				<?php else: ?>
+				<?php echo Form::label('nom', 'Nom'); ?>
+
+				<?php echo Form::text('nom', $famille['nom']); ?>
+
+				<?php endif; ?>
+			</div>
+			<div>
+				<?php if($errors->has('description')): ?>
+				<?php echo Form::label('description', 'Description', array('class'=>'error')); ?>
+
+				<?php echo Form::textarea('description', '', array('cols'=>'50', 'rows'=>'10', 'class'=>'error')); ?>
+
+				<?php else: ?>
+				<?php echo Form::label('description', 'Description'); ?>
+
+				<?php echo Form::textarea('description', $famille['description'], array('cols'=>'50', 'rows'=>'10')); ?>
+
+				<?php endif; ?>
+			</div>
+		</fieldset>
+		<?php echo Form::hidden('id', $famille['id']); ?>
+
+		<div class="buttonrow">
+			<?php echo Form::submit('Enregistrer', array('class'=>'button')); ?>
+
+			<input class="button" type="reset">
+		</div>
+		<?php echo Form::close(); ?>
+
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

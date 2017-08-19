@@ -1,0 +1,63 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Pharma</title>
+	<!-- css  -->
+	<link rel="shortcut icon" href="<?php echo asset('img/X32.png'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo asset('css/style.css'); ?>"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo asset('css/responsive-table.css'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo asset('css/img.css'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo asset('css/lib/font-awesome.min.css'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo asset('css/form.css'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo asset('css/lib/modules/ng-animation.css'); ?>" />
+	<?php echo $__env->yieldContent('css'); ?>
+	<!-- javaScript -->
+	<script src="<?php echo asset('js/lib/jquery.min.js'); ?>"></script>
+	<script src="<?php echo asset('js/lib/angular.js'); ?>"></script>
+	<script src="<?php echo asset('js/lib/modules/angular-animate.js'); ?>"></script>
+	<script>
+		var app = angular.module("Pharma", ['ngAnimate'], function($interpolateProvider) {
+			$interpolateProvider.startSymbol('<%');
+			$interpolateProvider.endSymbol('%>');
+		});
+		var controllerScope;
+		$(function() {
+			controllerScope = angular.element($("div[ng-controller]")).scope();
+			<?php echo $__env->yieldContent('js'); ?>
+		});
+	</script>
+	<script src="<?php echo asset('js/script.js'); ?>" charset="utf-8"></script>
+	<script src="<?php echo asset('js/app.js'); ?>" charset="utf-8"></script>
+	<?php echo $__env->yieldContent('homeJS'); ?>
+</head>
+<body ng-app="Pharma">
+	<header>
+		<div id="nav">
+			<div id="logo">
+				<img src="<?php echo asset('img/X64.png'); ?>">
+				<h1></h1>
+			</div>
+			<a href="<?php echo url('/'); ?>"><i class="fa fa-home fa-3x"></i></a>
+			<a href="<?php echo url('ajouter/famille'); ?>">Nouvelle Famille</a>
+			<a href="<?php echo url('ajouter/medicament'); ?>">Nouveau Medicament</a>
+			<a href="<?php echo url('ajouter/note'); ?>">Nouvelle Note</a>
+			<a href="<?php echo url('ajouter/commande'); ?>">Nouvelle Commande</a>
+		</div>
+	</header>
+	<aside>
+		<div id="tab">
+			<a data-content="Home" href="<?php echo url('/'); ?>"><div class="home"></div></a>
+			<a data-content="Familles" href="<?php echo url('familles'); ?>"><div class="balls"></div></a>
+			<a data-content="Medicaments" href="<?php echo url('medicaments'); ?>"><div class="medicala"></div></a>
+			<a data-content="Notes" href="<?php echo url('notes'); ?>"><div class="medicalb"></div></a>
+			<a data-content="Commandes" href="<?php echo url('commandes'); ?>"><div class="business"></div></a>
+		</div>
+	</aside>
+	<div id="main">
+		<div class="wrapper">
+			<?php echo $__env->yieldContent('content'); ?>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+/*mobile version*/
+.responsive-table th {
+    display: none;
+}
+.responsive-table td {
+    display: block;
+}
+.responsive-table td:first-child {
+    padding-top: .5em;
+}
+.responsive-table td:last-child {
+    padding-bottom: .5em;
+}
+.responsive-table td[data-th]:before {
+    content: attr(data-th) ": ";
+    font-weight: bold;
+    width: 6.5em;
+    display: inline-block;
+}
+
+/*web version*/
+@media only screen and (min-width: 1024px) {
+    .responsive-table td[data-th]:before {
+        display: none;
+    }
+    .responsive-table td:last-child {
+        padding-bottom: .25em;
+    }
+    .responsive-table td:first-child {
+        padding-top: 1em;
+    }
+    .responsive-table td, .responsive-table th {
+        display: table-cell;
+        padding: 1em;
+    }
+    table td{
+        height: 100px;
+    }
+}
