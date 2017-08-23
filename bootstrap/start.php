@@ -26,8 +26,8 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('Essid','DESKTOP-TS5B0DV'), // machine-name == localhost == local IP == *.dev
-	'production' => array('vps133070.ovh.net','vps133070.ovh.net')
+	'local' => array('localhost','pharma.localhost'), // machine-name == localhost == local IP == *.dev
+	'production' => array('')
 
 ));
 

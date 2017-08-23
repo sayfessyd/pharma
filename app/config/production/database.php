@@ -25,7 +25,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'pharma',
 			'username'  => 'root',
-			'password'  => 'saifz520',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
