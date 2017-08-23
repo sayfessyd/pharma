@@ -1,4 +1,4 @@
-[logo]: https://raw.githubusercontent.com/sayfessyd/pharma/master/screenshot.png
+![Screenshot](https://raw.githubusercontent.com/sayfessyd/pharma/master/screenshot.png)
 
 ## Pharma (Laravel 4.2)
 Pharma is a web application that allows the stock management of a pharmacy.
