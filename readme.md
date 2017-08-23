@@ -1,7 +1,7 @@
 ## Pharma (Laravel 4.2)
 Pharma is a web application that allows the stock management of a pharmacy.
 
-- Family management, medication, notes and commands (add / edit / delete)
+- Family management, medication, notes and commands (CRUD)
 - Automatic inventory update after a note editing operation or after receiving an order
 - Printing notes and commands
 - Caisse management => controlling financial flows
